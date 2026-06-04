@@ -1,3 +1,25 @@
 spring:
   application:
     name: spring-ai-agent
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY:}
+      chat:
+        options:
+          model: qwen-plus
+
+demo:
+  multi-agent:
+    mock-enabled: true
+    coordinator-prompt: |
+      你是旅行规划协调专家。
+      请将各个专家 Agent 的结果和工具输出整合为一份清晰、可执行的旅行方案。
+      回答务必务实、简洁，并优先给出用户可以直接执行的建议。
+    flight-prompt: |
+      你是交通出行专家。
+      请重点关注到达方式、市内交通、行程节奏和预算匹配度。
+      给出务实、易执行的建议。
+    hotel-prompt: |
+      你是住宿规划专家。
+      请重点关注住宿区域、酒店类型、出行便利性和预算匹配度。
+      给出务实、易执行的建议。
