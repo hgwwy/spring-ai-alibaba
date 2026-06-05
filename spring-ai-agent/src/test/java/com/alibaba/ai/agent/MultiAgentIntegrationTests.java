@@ -3,11 +3,8 @@ package com.alibaba.ai.agent;
 import com.alibaba.ai.agent.model.TravelPlanRequest;
 import com.alibaba.ai.agent.model.TravelPlanResponse;
 import com.alibaba.ai.agent.service.MultiAgentDemoService;
-import com.alibaba.cloud.ai.autoconfigure.rag.RagElasticSearchAutoConfiguration;
 import org.junit.jupiter.api.Test;
-import org.springframework.ai.vectorstore.elasticsearch.autoconfigure.ElasticsearchVectorStoreAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -19,10 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         "spring.ai.dashscope.api-key=test-key",
         "spring.ai.dashscope.chat.api-key=test-key",
         "spring.ai.dashscope.agent.api-key=test-key"
-})
-@ImportAutoConfiguration(exclude = {
-        ElasticsearchVectorStoreAutoConfiguration.class,
-        RagElasticSearchAutoConfiguration.class
 })
 class MultiAgentIntegrationTests {
 

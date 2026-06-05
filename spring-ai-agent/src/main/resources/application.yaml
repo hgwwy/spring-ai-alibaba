@@ -1,12 +1,15 @@
 spring:
   application:
     name: spring-ai-agent
+  output:
+    ansi:
+      enabled: always
   ai:
     dashscope:
-      api-key: ${DASHSCOPE_API_KEY:}
+      api-key: sk-a2b0971aede54bf99714ddb2f22005c6
       chat:
         options:
-          model: qwen-plus
+          model: qwen3.7-plus
 
 demo:
   multi-agent:
