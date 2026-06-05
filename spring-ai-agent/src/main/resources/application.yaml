@@ -6,14 +6,14 @@ spring:
       enabled: always
   ai:
     dashscope:
-      api-key: sk-a2b0971aede54bf99714ddb2f22005c6
+      api-key: sk-00c83d23cb734f348798d16cbdf00ea2
       chat:
         options:
-          model: qwen3.7-plus
+          model: qwen-plus
 
 demo:
   multi-agent:
-    mock-enabled: true
+    mock-enabled: false
     coordinator-prompt: |
       你是旅行规划协调专家。
       请将各个专家 Agent 的结果和工具输出整合为一份清晰、可执行的旅行方案。
@@ -26,3 +26,8 @@ demo:
       你是住宿规划专家。
       请重点关注住宿区域、酒店类型、出行便利性和预算匹配度。
       给出务实、易执行的建议。
+
+logging:
+  level:
+    org.springframework.web.client: DEBUG
+    org.springframework.ai: DEBUG

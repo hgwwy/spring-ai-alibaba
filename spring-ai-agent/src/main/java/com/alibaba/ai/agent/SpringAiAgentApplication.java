@@ -1,9 +1,10 @@
 package com.alibaba.ai.agent;
 
-import com.alibaba.ai.agent.config.AgentProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import com.alibaba.ai.agent.config.AgentProperties;
 
 /**
  * 多 Agent 演示应用启动入口。

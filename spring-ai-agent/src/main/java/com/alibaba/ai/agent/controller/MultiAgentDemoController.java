@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 多 Agent 旅行规划接口。
  */
 @RestController
-@RequestMapping("/api/agents")
+@RequestMapping("/agents")
 public class MultiAgentDemoController {
 
     /**
@@ -29,8 +29,8 @@ public class MultiAgentDemoController {
     }
 
     /**
-     * 接收旅行规划请求并返回多 Agent 生成的结构化结果。
-     */
+     * 旅行规划
+     **/
     @PostMapping("/travel-plan")
     public TravelPlanResponse createTravelPlan(@Valid @RequestBody TravelPlanRequest request) {
         return multiAgentDemoService.createPlan(request);

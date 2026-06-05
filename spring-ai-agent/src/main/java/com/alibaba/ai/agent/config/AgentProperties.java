@@ -3,7 +3,7 @@ package com.alibaba.ai.agent.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 多 Agent 示例的自定义配置。
+ * 多 Agent 示例
  */
 @ConfigurationProperties(prefix = "demo.multi-agent")
 public class AgentProperties {
