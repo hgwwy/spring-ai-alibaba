@@ -1,4 +1,12 @@
+/.vscode/
 .vscode/settings.json
 /.idea/vcs.xml
 /.idea/
 /.claude/worktrees/
+
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
