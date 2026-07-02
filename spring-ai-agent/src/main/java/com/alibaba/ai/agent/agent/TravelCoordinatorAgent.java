@@ -4,6 +4,7 @@ import com.alibaba.ai.agent.config.AgentProperties;
 import com.alibaba.ai.agent.model.AgentPlanContext;
 import com.alibaba.ai.agent.model.AgentResult;
 import org.springframework.ai.chat.client.ChatClient;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -38,12 +39,43 @@ public class TravelCoordinatorAgent {
             return "这是一个适合轻松出行的方案：先保证到达和住宿便利，再围绕偏好安排每日活动，并把预算重点放在住宿与交通上。";
         }
 
+        return chatClient.prompt()
+                .system(properties.getCoordinatorPrompt())
+                .user(buildUserPrompt(context, specialistResults, budgetPlan, itineraryDraft))
+                .call()
+                .content();
+    }
+
+    /**
+     * 以流式方式汇总专家建议与工具输出。
+     */
+    public Flux<String> streamSummarize(AgentPlanContext context, List<AgentResult> specialistResults, String budgetPlan, String itineraryDraft) {
+        if (properties.isMockEnabled()) {
+            return Flux.just(
+                    "这是一个适合轻松出行的方案：",
+                    "先保证到达和住宿便利，",
+                    "再围绕偏好安排每日活动，",
+                    "并把预算重点放在住宿与交通上。"
+            );
+        }
+
+        return chatClient.prompt()
+                .system(properties.getCoordinatorPrompt())
+                .user(buildUserPrompt(context, specialistResults, budgetPlan, itineraryDraft))
+                .stream()
+                .content();
+    }
+
+    /**
+     * 构建协调专家使用的用户提示词。
+     */
+    private String buildUserPrompt(AgentPlanContext context, List<AgentResult> specialistResults, String budgetPlan, String itineraryDraft) {
         String specialistText = specialistResults.stream()
                 .map(result -> result.agentName() + "：" + result.content())
                 .reduce((left, right) -> left + "\n" + right)
                 .orElse("暂无专家建议");
 
-        String userPrompt = """
+        return """
                 请为 %s 生成一份简洁、可执行的旅行方案。
                 天数：%d
                 预算：%d 元
@@ -66,12 +98,6 @@ public class TravelCoordinatorAgent {
                 budgetPlan,
                 itineraryDraft
         );
-
-        return chatClient.prompt()
-                .system(properties.getCoordinatorPrompt())
-                .user(userPrompt)
-                .call()
-                .content();
     }
 
     /**

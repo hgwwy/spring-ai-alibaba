@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 ## 前置条件
 1. 必须请始终用中文回复。
@@ -173,5 +173,5 @@
 - 如果增加真正的 RAG、MCP、Elasticsearch 功能，记得重新审视测试启动路径，否则很容易在测试上下文加载阶段触发外部依赖连接。
 - 这个仓库很适合通过 `dependency:build-classpath` 配合 `javap` 做本地 API 核对，特别是在确认 Spring AI Alibaba Agent Framework 的真实可用方法时。
 - `spring-ai-alibaba` 1.1.2.2 版本可能不在公共 Maven 仓库中（pom.xml 注释中已提示 "Install Spring AI Alibaba in your local"）。如果依赖解析失败，需要先在本地安装该版本。
-- 仓库中目前没有 README.md 文件，但 CLAUDE.md 多处引用了它；如需参考 README 中描述的目标接口和功能，以本 CLAUDE.md 的描述为准。
+- 仓库中目前没有 README.md 文件，但 AGENTS.md 多处引用了它；如需参考 README 中描述的目标接口和功能，以本 AGENTS.md 的描述为准。
 - 当前代码中的注释、提示词和工具描述已经统一改成中文；新增示例代码时，默认保持中文文案风格。

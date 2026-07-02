@@ -2,9 +2,12 @@ package com.alibaba.ai.agent.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import lombok.Data;
+
 /**
- * 多 Agent 示例
+ * 多 Agent 示例配置。
  */
+@Data
 @ConfigurationProperties(prefix = "demo.multi-agent")
 public class AgentProperties {
 
@@ -39,61 +42,5 @@ public class AgentProperties {
             请重点关注住宿区域、酒店类型、出行便利性和预算匹配度。
             给出务实、易执行的建议。
             """;
-
-    /**
-     * 返回是否启用 mock 模式。
-     */
-    public boolean isMockEnabled() {
-        return mockEnabled;
-    }
-
-    /**
-     * 设置是否启用 mock 模式。
-     */
-    public void setMockEnabled(boolean mockEnabled) {
-        this.mockEnabled = mockEnabled;
-    }
-
-    /**
-     * 返回协调专家的系统提示词。
-     */
-    public String getCoordinatorPrompt() {
-        return coordinatorPrompt;
-    }
-
-    /**
-     * 设置协调专家的系统提示词。
-     */
-    public void setCoordinatorPrompt(String coordinatorPrompt) {
-        this.coordinatorPrompt = coordinatorPrompt;
-    }
-
-    /**
-     * 返回交通专家的系统提示词。
-     */
-    public String getFlightPrompt() {
-        return flightPrompt;
-    }
-
-    /**
-     * 设置交通专家的系统提示词。
-     */
-    public void setFlightPrompt(String flightPrompt) {
-        this.flightPrompt = flightPrompt;
-    }
-
-    /**
-     * 返回住宿专家的系统提示词。
-     */
-    public String getHotelPrompt() {
-        return hotelPrompt;
-    }
-
-    /**
-     * 设置住宿专家的系统提示词。
-     */
-    public void setHotelPrompt(String hotelPrompt) {
-        this.hotelPrompt = hotelPrompt;
-    }
 
 }

@@ -4,6 +4,7 @@ import com.alibaba.ai.agent.config.AgentProperties;
 import com.alibaba.ai.agent.model.AgentPlanContext;
 import com.alibaba.ai.agent.model.AgentResult;
 import org.springframework.ai.chat.client.ChatClient;
+import reactor.core.publisher.Flux;
 
 /**
  * 负责生成住宿规划建议的专家 Agent。
@@ -44,6 +45,25 @@ public class HotelPlanningAgent implements SpecialistAgent {
                 .call()
                 .content();
         return new AgentResult("住宿专家", content);
+    }
+
+    /**
+     * 流式生成住宿规划建议。
+     */
+    @Override
+    public Flux<String> streamPlan(AgentPlanContext context) {
+        if (properties.isMockEnabled()) {
+            return Flux.just(
+                    "建议住在交通便利、靠近餐饮聚集区的商圈酒店，",
+                    "优先选择可步行到地铁站的中档酒店。"
+            );
+        }
+
+        return chatClient.prompt()
+                .system(properties.getHotelPrompt())
+                .user(context.userPrompt())
+                .stream()
+                .content();
     }
 
 }

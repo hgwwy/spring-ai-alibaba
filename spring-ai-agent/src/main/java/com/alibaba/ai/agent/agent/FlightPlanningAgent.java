@@ -1,9 +1,12 @@
 package com.alibaba.ai.agent.agent;
 
+import org.springframework.ai.chat.client.ChatClient;
+
 import com.alibaba.ai.agent.config.AgentProperties;
 import com.alibaba.ai.agent.model.AgentPlanContext;
 import com.alibaba.ai.agent.model.AgentResult;
-import org.springframework.ai.chat.client.ChatClient;
+
+import reactor.core.publisher.Flux;
 
 /**
  * 负责生成交通出行建议的专家 Agent。
@@ -44,6 +47,26 @@ public class FlightPlanningAgent implements SpecialistAgent {
                 .call()
                 .content();
         return new AgentResult("交通专家", content);
+    }
+
+    /**
+     * 流式生成交通出行建议。
+     */
+    @Override
+    public Flux<String> streamPlan(AgentPlanContext context) {
+        if (properties.isMockEnabled()) {
+            return Flux.just(
+                    "建议优先选择到达后换乘方便的交通方案，",
+                    "首日安排轻松节奏，",
+                    "市内以地铁和打车结合为主。"
+            );
+        }
+
+        return chatClient.prompt()
+                .system(properties.getFlightPrompt())
+                .user(context.userPrompt())
+                .stream()
+                .content();
     }
 
 }
